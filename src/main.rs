@@ -24,9 +24,7 @@ async fn main() -> anyhow::Result<()> {
     let conf = Args::parse();
 
     // init bot    
-    let bot = Bot::new(conf.tg)
-        //.parse_mode(teloxide::types::ParseMode::MarkdownV2)
-    ;
+    let bot = Bot::new(conf.tg);
     Ok(teloxide::repl(bot,save).await)
 }
 
@@ -46,15 +44,7 @@ async fn save(bot: Bot, msg: teloxide::types::Message) -> teloxide::prelude::Res
 
     let time = chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true);
     let message_text = message_text.replace("#", "\\#");
-    let resp = format!(
-r#"
-*TLDR*
-`{}`
-
-{}
-
-\#biba \#boba
-"#, time, message_text);
+    let resp = format!("`{}`\n{}", time, message_text);
 
 
     bot.delete_message(chat_id, message_id).await?;
