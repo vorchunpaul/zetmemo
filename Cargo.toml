@@ -1,0 +1,12 @@
+[package]
+name = "zetmemo_bot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+chrono = { version = "0.4.38", features = ["serde"] }
+teloxide = { version = "0.13.0", features = ["full"] }
+tokio = { version = "1.39.3", features = ["full"] }
+tracing = { version = "0.1.40", features = ["log-always"] }
+tracing-subscriber = { version = "0.3.18", features = ["ansi"] }
