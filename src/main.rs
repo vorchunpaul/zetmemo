@@ -1,6 +1,13 @@
-use teloxide::{payloads::SendMessageSetters, prelude::{Requester, RequesterExt}, Bot};
+use teloxide::{payloads::SendMessageSetters, prelude::Requester, Bot};
 use tracing::info;
 use anyhow;
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+struct Args {
+    #[arg(long, value_name="tg_bot_tock")]
+    tg: String,
+}
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -13,8 +20,11 @@ async fn main() -> anyhow::Result<()> {
     )?;
     info!("zetmemo bot starting ...");
 
+    // parce args 
+    let conf = Args::parse();
+
     // init bot    
-    let bot = Bot::new("")
+    let bot = Bot::new(conf.tg)
         //.parse_mode(teloxide::types::ParseMode::MarkdownV2)
     ;
     Ok(teloxide::repl(bot,save).await)
